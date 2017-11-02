@@ -16,7 +16,7 @@ function directPayCheckout(payObject, callback) {
     document.head.appendChild(imported);
 
     //directpay button click
-    document.getElementById("_directPayCheckoutButton").addEventListener("click", function () {
+    //document.getElementById("_directPayCheckoutButton").addEventListener("click", function () {
 
         document.getElementById("_directPayCheckoutButton").disabled = true;
 
@@ -105,7 +105,7 @@ function directPayCheckout(payObject, callback) {
             }
         }
 
-    });
+    //});
 
 }
 
