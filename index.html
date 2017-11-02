@@ -47,9 +47,11 @@
         <br/><br/>
         <div class="row">
             <div class="col-md-4">
-                <div id="btnDirectPay"></div>
+                <!--div id="btnDirectPay"></div-->
                 <br/>
                 <div id="directPayQr"></div>
+		<br/>
+		<div id="directpay"></div>
             </div>
 
             <div class="col-md-8">
@@ -74,7 +76,7 @@ var payObject = {
     "invoiceId":"1234"
 };
 
-new directPayCheckout(payObject, myFunction);//object with callback function</xmp></pre>
+</xmp></pre>
                 </div>
             </div>
         </div>
@@ -106,8 +108,12 @@ new directPayCheckout(payObject, myFunction);//object with callback function</xm
                 "amount":2000.00,
                 "invoiceId":"1234"
             };
-
-            var directPay = new directPayCheckout(payObject, myFunction);
+	
+		window.onload = function() {
+ 		 var directPay = new directPayCheckout(payObject, myFunction);
+ 		 $('#directpay').text("Scan this QR Code using DirectPay Mobile App");
+		};	
+           
 
         </script>
 
