@@ -18,7 +18,7 @@ function directPayCheckout(payObject, callback) {
     //directpay button click
     //document.getElementById("_directPayCheckoutButton").addEventListener("click", function () {
 
-        document.getElementById("_directPayCheckoutButton").disabled = true;
+        //document.getElementById("_directPayCheckoutButton").disabled = true;
 
         //assign url amount
         var _amount = amount;
