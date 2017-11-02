@@ -25,7 +25,7 @@ function directPayCheckout(payObject, callback) {
         var _merchantId = merchantId;
         //assign reference number
         var referenceNo = '123456';
-        var directpayUrlPayemnt = 'http://13.58.144.197/default/web/purchase/getqr?amount='+_amount+'&id='+referenceNo+'&merchantId='+_merchantId;
+        var directpayUrlPayemnt = 'https://gateway.directpay.lk/default/web/purchase/getqr?amount='+_amount+'&id='+invoiceId+'&merchantId='+_merchantId;
 
         //create qr
         document.getElementById(qrCodeElement).innerHTML +=
@@ -49,13 +49,22 @@ function directPayCheckout(payObject, callback) {
         xmlHttp.send(null);
 
         // Create a client instance
-        client = new Paho.MQTT.Client('13.58.144.197',9001, "clientId"+ new Date().getTime());
+        client = new Paho.MQTT.Client('gateway.directpay.lk/mqtt/',443, "clientId"+ new Date().getTime());
         // set callback handlers
-        client.onConnectionLost = onConnectionLost;
+      	var options = {
+      //invocationContext: {host : https://gateway.directpay.lk, port: port, path: client.path, clientId: clientId},
+     // timeout: timeout,
+     // keepAliveInterval:keepAlive,
+     // cleanSession: cleanSession,
+      useSSL: true,
+      onSuccess: onConnect
+      //onFailure: onFail
+    };
+	 client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
 
         // connect the client
-        client.connect({onSuccess:onConnect});
+        client.connect(options);
 
         // called when the client connects
         function onConnect() {
