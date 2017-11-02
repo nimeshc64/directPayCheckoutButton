@@ -41,6 +41,7 @@ function directPayCheckout(payObject, callback) {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                 //document.getElementById("qr").innerHTML = (xmlHttp.responseText)
                 document.getElementById("qr").src = ( xmlHttp.responseText);
+                mqtt();
                 // $('#_directPayCheckoutButton').remove();
 
             }
@@ -49,66 +50,67 @@ function directPayCheckout(payObject, callback) {
         xmlHttp.send(null);
 
         // Create a client instance
-       window.onload=function(){
-           client = new Paho.MQTT.Client('gateway.directpay.lk/mqtt/',443, "clientId"+ new Date().getTime());
-           // set callback handlers
-           var options = {
-               //invocationContext: {host : https://gateway.directpay.lk, port: port, path: client.path, clientId: clientId},
-               // timeout: timeout,
-               // keepAliveInterval:keepAlive,
-               // cleanSession: cleanSession,
-               useSSL: true,
-               onSuccess: onConnect
-               //onFailure: onFail
-           };
-           client.onConnectionLost = onConnectionLost;
-           client.onMessageArrived = onMessageArrived;
 
-           // connect the client
-           client.connect(options);
-
-           // called when the client connects
-           function onConnect() {
-               // Once a connection has been made, make a subscription and send a message.
-               console.log("onConnect");
-               var topic = "{{ merchantId }}";
-               client.subscribe("Supun");
-           }
-
-           // called when the client loses its connection
-           function onConnectionLost(responseObject) {
-               if (responseObject.errorCode !== 0) {
-                   console.log("onConnectionLost:"+responseObject.errorMessage);
-               }
-           }
-
-           // called when a message arrives
-           function onMessageArrived(message) {
-
-               var msg = JSON.parse( message.payloadString);
-
-               //console.log(msg);
-               if(msg['success'] == true){
-
-                   //console.log(msg);
-                   //console.log("onMessageArrived:"+message.payloadString);
-
-                   $('#transactionId').text("Receipt No: "+msg['id']);
-                   $('#amount').text("Payment : "+msg['amount']);
-                   $('#merchantName').text("Merchant Name: "+msg['name']);
-                   $('#qr').remove();
-
-                   callback(msg, 200);
-
-                   document.getElementById("_directPayCheckoutButton").disabled = false;
-               }else {
-                   callback(msg, 500);
-               }
-           }
-       };
 
     //});
 
 }
 
 
+function mqtt(){
+    client = new Paho.MQTT.Client('gateway.directpay.lk/mqtt/',443, "clientId"+ new Date().getTime());
+    // set callback handlers
+    var options = {
+        //invocationContext: {host : https://gateway.directpay.lk, port: port, path: client.path, clientId: clientId},
+        // timeout: timeout,
+        // keepAliveInterval:keepAlive,
+        // cleanSession: cleanSession,
+        useSSL: true,
+        onSuccess: onConnect
+        //onFailure: onFail
+    };
+    client.onConnectionLost = onConnectionLost;
+    client.onMessageArrived = onMessageArrived;
+
+    // connect the client
+    client.connect(options);
+
+    // called when the client connects
+    function onConnect() {
+        // Once a connection has been made, make a subscription and send a message.
+        console.log("onConnect");
+        var topic = "{{ merchantId }}";
+        client.subscribe("Supun");
+    }
+
+    // called when the client loses its connection
+    function onConnectionLost(responseObject) {
+        if (responseObject.errorCode !== 0) {
+            console.log("onConnectionLost:"+responseObject.errorMessage);
+        }
+    }
+
+    // called when a message arrives
+    function onMessageArrived(message) {
+
+        var msg = JSON.parse( message.payloadString);
+
+        //console.log(msg);
+        if(msg['success'] == true){
+
+            //console.log(msg);
+            //console.log("onMessageArrived:"+message.payloadString);
+
+            $('#transactionId').text("Receipt No: "+msg['id']);
+            $('#amount').text("Payment : "+msg['amount']);
+            $('#merchantName').text("Merchant Name: "+msg['name']);
+            $('#qr').remove();
+
+            callback(msg, 200);
+
+            document.getElementById("_directPayCheckoutButton").disabled = false;
+        }else {
+            callback(msg, 500);
+        }
+    }
+};
