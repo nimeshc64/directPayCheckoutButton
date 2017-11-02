@@ -8,7 +8,7 @@ function directPayCheckout(payObject, callback) {
 
     //create directPay button
     var checkoutBtnDiv = document.getElementById(checkoutBtnElement);
-    checkoutBtnDiv.innerHTML += '<button class="btn btn-primary btn-block" id="_directPayCheckoutButton">DirectPay</button>';
+    //checkoutBtnDiv.innerHTML += '<button class="btn btn-primary btn-block" id="_directPayCheckoutButton">DirectPay</button>';
 
     //include mqtt.js
     var imported = document.createElement('script');
