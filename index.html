@@ -56,12 +56,13 @@
 
             <div class="col-md-8">
                 <div class="pane panel-default">
-                    <label>DIV For Button</label>
-                    <pre><xmp><div id="btnDirectPay"></div></xmp></pre>
+                    <!--<label>DIV For Button</label>-->
+                    <!--<pre><xmp><div id="btnDirectPay"></div></xmp></pre>-->
                     <label>DIV For QR Code</label>
                     <pre><xmp><div id="directPayQr"></div></xmp></pre>
                     <label>Javascript</label>
                     <pre><xmp>
+
 <script src="directPayCheckout.js"></script>
 
         var myFunction = function (response, err){
@@ -75,6 +76,10 @@
             "amount":2000,
             "invoiceId":"1234"
         };
+        window.onload = function() {
+ 		    var directPay = new directPayCheckout(payObject, myFunction);
+
+		};
 
 </xmp></pre>
                 </div>
@@ -111,7 +116,7 @@
 	
 		window.onload = function() {
  		 var directPay = new directPayCheckout(payObject, myFunction);
- 		 $('#directpay').text("Scan this QR Code using DirectPay Mobile App");
+
 		};	
            
 

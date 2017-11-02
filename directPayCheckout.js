@@ -41,6 +41,7 @@ function directPayCheckout(payObject, callback) {
             if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                 //document.getElementById("qr").innerHTML = (xmlHttp.responseText)
                 document.getElementById("qr").src = ( xmlHttp.responseText);
+                $('#directpay').text("To proceed the payment scan this QR Code using DirectPay Mobile App");
                 mqtt();
                 // $('#_directPayCheckoutButton').remove();
 
