@@ -3,7 +3,7 @@ function directPayCheckout(payObject, callback) {
     var merchantId = payObject.merchantId;
     var checkoutBtnElement = payObject.checkoutBtn;
     var qrCodeElement = payObject.qrCode;
-    var amount = payObject.amount;
+    var amount =''+ payObject.amount;
     var invoiceId = payObject.invoiceId;
 
     //create directPay button
@@ -21,7 +21,7 @@ function directPayCheckout(payObject, callback) {
         //document.getElementById("_directPayCheckoutButton").disabled = true;
 
         //assign url amount
-        var _amount = amount;
+        var _amount = ''+amount;
         var _merchantId = merchantId;
         //assign reference number
         var referenceNo = '123456';
